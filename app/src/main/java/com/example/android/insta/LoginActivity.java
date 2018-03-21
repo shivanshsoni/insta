@@ -52,11 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        ProgressDialog pd = new ProgressDialog(LoginActivity.this);
-                        pd.setMessage("Checking...");
-                        pd.show();
                         checkUserExists();
-                        pd.dismiss();
                         Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -64,14 +60,19 @@ public class LoginActivity extends AppCompatActivity {
         }
         else{
             if(email.isEmpty()){
-                loginemail.setText("enter email_id");
+                loginemail.setError("enter email_id");
             }
             else if(pass.isEmpty()){
-                loginpass.setText("enter password");
+                loginpass.setError("enter password");
             }
         }
     }
 
+
+    public void onRegisterClicked(View view){
+        Intent instr=new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(instr);
+    }
 
     public void checkUserExists(){
         final String user_id = mAuth.getCurrentUser().getUid();

@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -48,14 +49,10 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        ProgressDialog pd = new ProgressDialog(RegisterActivity.this);
-                        pd.setMessage("Registering...");
-                        pd.show();
                         String user_id = mAuth.getCurrentUser().getUid();
                         DatabaseReference current_user_db = mDatabase.child(user_id);
                         current_user_db.child("Name").setValue(name);
                         current_user_db.child("Image").setValue("default");
-                        pd.dismiss();
                         Toast.makeText(RegisterActivity.this, "Succesfully registered", Toast.LENGTH_SHORT).show();
                         Intent mainIntent = new Intent(RegisterActivity.this, LoginActivity.class);
                         mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -64,5 +61,22 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             });
         }
+        else
+        {
+            if(name.isEmpty()){
+                nameField.setError("Enter name");
+            }
+            else if(email.isEmpty()){
+                emailField.setError("Enter email");
+            }
+            else if(pass.isEmpty()){
+                passField.setError("Enter password");
+            }
+        }
+    }
+
+    public void loginButtonClicked(View view){
+        Intent inst = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(inst);
     }
 }
