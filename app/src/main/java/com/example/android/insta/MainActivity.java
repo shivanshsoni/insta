@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser() == null){
-                    Intent loginIntent = new Intent(MainActivity.this, RegisterActivity.class);
+                    Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                     loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(loginIntent);
                 }
@@ -123,15 +123,18 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        else if(id == R.id.addIcon){
+        if(id == R.id.addIcon){
             startActivity(new Intent(MainActivity.this, PostActivity.class));
         }
         else if(id==R.id.logout){
             mAuth.signOut();
+            Intent intr = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intr);
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onBackPressed(){
+        moveTaskToBack(true);
     }
 }
