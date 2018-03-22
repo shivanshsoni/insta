@@ -83,6 +83,10 @@ public class LoginActivity extends AppCompatActivity {
                     Intent loginIntent = new Intent(LoginActivity.this,MainActivity.class);
                     startActivity(loginIntent);
                 }
+                else
+                {
+                    Toast.makeText(LoginActivity.this, "User does not exist", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

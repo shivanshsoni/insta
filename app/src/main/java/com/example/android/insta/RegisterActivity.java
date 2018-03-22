@@ -58,6 +58,12 @@ public class RegisterActivity extends AppCompatActivity {
                         mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(mainIntent);
                     }
+                    else
+                    {
+                        Toast.makeText(RegisterActivity.this, "User is already registered. Login to enter.", Toast.LENGTH_SHORT).show();
+                        Intent inter=new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(inter);
+                    }
                 }
             });
         }

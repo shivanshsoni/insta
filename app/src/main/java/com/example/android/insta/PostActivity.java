@@ -23,6 +23,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.w3c.dom.Text;
+
 public class PostActivity extends AppCompatActivity {
 
     private static final int GALLERY_REQUEST =2;
@@ -66,18 +68,16 @@ public class PostActivity extends AppCompatActivity {
 
         final String titleValue = editname.getText().toString().trim();
         final String descValue = editdesc.getText().toString().trim();
-
+        ProgressDialog pd = new ProgressDialog(PostActivity.this);
+        pd.setMessage("Uploading...");
+        pd.show();
         if(!TextUtils.isEmpty(titleValue) && !TextUtils.isEmpty(descValue)){
 
             StorageReference filepath = storageReference.child("postImage").child(uri.getLastPathSegment());
             filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    ProgressDialog pd = new ProgressDialog(PostActivity.this);
-                    pd.setMessage("Uploading...");
-                    pd.show();
                     Uri downloadurl = taskSnapshot.getDownloadUrl();
-                    pd.dismiss();
                     Toast.makeText(PostActivity.this, "Upload Complete", Toast.LENGTH_SHORT).show();
                     DatabaseReference newPost = dataref.push();
                     newPost.child("title").setValue(titleValue);
@@ -88,5 +88,20 @@ public class PostActivity extends AppCompatActivity {
                 }
             });
         }
+        else
+        {
+            if(TextUtils.isEmpty(titleValue)){
+                editname.setError("Enter Name");
+            }
+            else if(TextUtils.isEmpty(descValue)){
+                editdesc.setError("Enter Description");
+            }
+            else
+            {
+                Toast.makeText(this, "Select an Image First", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        pd.dismiss();
     }
 }
