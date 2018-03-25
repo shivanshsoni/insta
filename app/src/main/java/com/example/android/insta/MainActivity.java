@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,9 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+
+import Utils.BottomNavigationViewHelper;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mdatabase;
     private FirebaseAuth mAuth;
     private RecyclerView.ViewHolder mView;
+    private static final String TAG = "HomeActivity";
+
 
     private FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -41,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setupBottomNavigationView();
 
         mInstaList = (RecyclerView) findViewById(R.id.insta_list);
         mInstaList.setHasFixedSize(true);
@@ -89,6 +96,12 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    private void setupBottomNavigationView(){
+        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
+        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
+        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
     }
 
     public static class instaViewHolder extends RecyclerView.ViewHolder{
