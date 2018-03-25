@@ -11,21 +11,21 @@
     <item
         android:id="@+id/activities"
         android:icon="@drawable/ic_action_activities"
-        android:title="">
+        android:title="Activities">
 
     </item>
 
     <item
         android:id="@+id/search"
         android:icon="@drawable/ic_action_search"
-        android:title="">
+        android:title="Search">
 
     </item>
 
     <item
         android:id="@+id/profile"
         android:icon="@drawable/ic_action_profile"
-        android:title="">
+        android:title="Profile">
 
     </item>
 
