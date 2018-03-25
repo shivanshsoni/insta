@@ -13,18 +13,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-
-import Utils.BottomNavigationViewHelper;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
-
-import android.os.Handler;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setupBottomNavigationView();
 
         mInstaList = (RecyclerView) findViewById(R.id.insta_list);
         mInstaList.setHasFixedSize(true);
@@ -94,11 +87,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void setupBottomNavigationView(){
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-    }
-
     public static class instaViewHolder extends RecyclerView.ViewHolder{
         public instaViewHolder(View itemView){
             super(itemView);
@@ -144,25 +132,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    boolean doubleBackToExitPressedOnce = false;
-
     @Override
-    public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
-
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce=false;
-            }
-        }, 2000);
+    public void onBackPressed(){
+        moveTaskToBack(true);
     }
 }
