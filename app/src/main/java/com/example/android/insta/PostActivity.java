@@ -68,9 +68,6 @@ public class PostActivity extends AppCompatActivity {
 
         final String titleValue = editname.getText().toString().trim();
         final String descValue = editdesc.getText().toString().trim();
-        ProgressDialog pd = new ProgressDialog(PostActivity.this);
-        pd.setMessage("Uploading...");
-        pd.show();
         if(!TextUtils.isEmpty(titleValue) && !TextUtils.isEmpty(descValue)){
 
             StorageReference filepath = storageReference.child("postImage").child(uri.getLastPathSegment());
@@ -102,6 +99,5 @@ public class PostActivity extends AppCompatActivity {
             }
 
         }
-        pd.dismiss();
     }
 }
