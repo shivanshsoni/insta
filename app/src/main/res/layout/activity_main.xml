@@ -46,5 +46,6 @@
         android:layout_alignParentLeft="true">
 
     </FrameLayout>
+    <include layout="@layout/content_main" />
 
 </RelativeLayout>
